@@ -18,22 +18,7 @@
 
 ## 🏗️ Архитектура
 
-```mermaid
-graph TD
-    User[User] --> PHP[PHP Server]
-    PHP -->|POST /analyze| API[FastAPI Gateway]
-    API -->|generates request_id| Broker[(RabbitMQ)]
-    API -->|returns request_id| PHP
-    PHP -->|GET /result/{id}| API
-    API -->|query result| Store[(Storage)]
-    Store -->|result| API
-    API -->|result| PHP
-    PHP -->|response| User
 
-    Broker -->|task| Consumer[Consumer Worker]
-    Consumer -->|executes| Graph[LangGraph]
-    Graph -->|YOLO + LLaVA + Mistral| LLM[Ollama]
-```
 
 FastAPI – принимает запросы, публикует задачи в очередь, отдаёт результаты.
 RabbitMQ – брокер сообщений (очереди tasks и results).
