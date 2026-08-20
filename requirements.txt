@@ -1,0 +1,11 @@
+fastapi
+uvicorn
+aio-pika
+langchain-ollama
+langgraph
+ultralytics
+opencv-python
+numpy
+Pillow
+requests
+python-dotenv

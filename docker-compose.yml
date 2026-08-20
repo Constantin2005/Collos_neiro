@@ -1,0 +1,54 @@
+services:
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: ${RABBITMQ_USER:-guest}
+      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_PASS:-guest}
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+    networks:
+      - app_network
+
+  api:
+    build:
+      context: .
+      dockerfile: api/Dockerfile
+    ports:
+      - "8000:8000"
+    environment:
+      RABBITMQ_URL: amqp://${RABBITMQ_USER:-guest}:${RABBITMQ_PASS:-guest}@rabbitmq:5672/
+      OLLAMA_HOST: http://host.docker.internal:11434
+    depends_on:
+      - rabbitmq
+    networks:
+      - app_network
+    volumes:
+      - ./models:/app/models
+
+  consumer:
+    build:
+      context: .
+      dockerfile: consumer/Dockerfile
+    environment:
+      PYTHONUNBUFFERED: 1
+      RABBITMQ_URL: amqp://guest:guest@rabbitmq:5672/
+      OLLAMA_HOST: http://host.docker.internal:11434
+    depends_on:
+      - rabbitmq
+    networks:
+      - app_network
+    volumes:
+      - ./models:/app/models
+    deploy:
+      replicas: 2
+
+networks:
+  app_network:
+    driver: bridge
+
+volumes:
+  rabbitmq_data:

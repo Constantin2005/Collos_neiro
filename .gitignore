@@ -1,0 +1,94 @@
+# --- Python ---
+__pycache__/
+*.py[cod]
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+myenv/
+ENV/
+env.bak/
+venv.bak/
+pip-log.txt
+pip-delete-this-directory.txt
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.tox/
+.coverage
+.coverage.*
+*.log
+*.pid
+*.pid.lock
+
+# --- IDE и редакторы ---
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# --- Docker ---
+docker-compose.override.yml
+*.dockerignore
+
+# --- Секреты и конфигурация ---
+.env
+.env.local
+.env.*.local
+.env.production
+.secrets
+
+# --- Модели и большие файлы (YOLO и др.) ---
+*.pt
+*.pth
+*.onnx
+*.pb
+*.h5
+*.tflite
+*.ckpt
+*.safetensors
+*.bin
+*.pkl
+*.joblib
+models/
+
+# --- Временные файлы проекта ---
+*.mmd
+*.png
+graph_example_*.png
+result_*.jpg
+result_*.json
+all_results.json
+*.pyc
+*.log
+
+# --- Сборки, дистрибутивы ---
+build/
+dist/
+*.egg-info/
+*.egg
+MANIFEST
+
+# --- Отчёты и документация ---
+docs/_build/
+site/
+
+# --- Jupyter ---
+.ipynb_checkpoints/
+*.ipynb
+
+# --- Авто-генерируемые файлы из Mermaid / Graphviz (если есть) ---
+graph.mmd
+graph.png
+graph_example_*.png
+
+# --- Любые другие ваши локальные тестовые файлы ---
+test_*.py
+temp_*.py
+*.tmp
+*.bak
