@@ -24,7 +24,7 @@ graph TD
     PHP -->|POST /analyze| API[FastAPI Gateway]
     API -->|generates request_id| Broker[(RabbitMQ)]
     API -->|returns request_id| PHP
-    PHP -->|GET /result/{id}| API
+    PHP -->|GET result| API
     API -->|query result| Store[(Storage)]
     Store -->|result| API
     API -->|result| PHP
