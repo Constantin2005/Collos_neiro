@@ -20,17 +20,20 @@
 
 ```mermaid
 graph TD
-    User[Пользователь] --> PHP[PHP-сервер]
+    User[User] --> PHP[PHP Server]
     PHP -->|POST /analyze| API[FastAPI Gateway]
-    API -->|генерирует request_id| Broker[(RabbitMQ)]
-    API -->|возвращает request_id| PHP
+    API -->|generates request_id| Broker[(RabbitMQ)]
+    API -->|returns request_id| PHP
     PHP -->|GET /result/{id}| API
-    API -->|запрос результата| Store[(Хранилище)]
-    Store -->|результат| API --> PHP --> User
+    API -->|query result| Store[(Storage)]
+    Store -->|result| API
+    API -->|result| PHP
+    PHP -->|response| User
 
-    Broker -->|задание| Consumer[Consumer Worker]
-    Consumer -->|выполняет| Graph[LangGraph]
+    Broker -->|task| Consumer[Consumer Worker]
+    Consumer -->|executes| Graph[LangGraph]
     Graph -->|YOLO + LLaVA + Mistral| LLM[Ollama]
+```
 
 FastAPI – принимает запросы, публикует задачи в очередь, отдаёт результаты.
 RabbitMQ – брокер сообщений (очереди tasks и results).
