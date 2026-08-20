@@ -29,7 +29,6 @@ graph TD
     Store -->|result| API
     API -->|result| PHP
     PHP -->|response| User
-
     Broker -->|task| Consumer[Consumer Worker]
     Consumer -->|executes| Graph[LangGraph]
     Graph -->|YOLO + LLaVA + Mistral| LLM[Ollama]
